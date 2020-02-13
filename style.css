@@ -5,7 +5,8 @@
 }
 
 .canvas {
-    background-color: rebeccapurple;
+    background-image: url('https://pbs.twimg.com/media/CqFOl4cWgAA6xWy.jpg');
+    background-repeat: none;
 }
 
 /* .canvas {
