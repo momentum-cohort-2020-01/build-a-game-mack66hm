@@ -18,10 +18,10 @@ class Game {
   }
 
   update () {
-    // const notHittingAnything = (b1) => {
-    //   return this.bodies.filter(function (b2) { return hitting(b1, b2) }).length === 0
-    // }
-    // this.bodies = this.bodies.filter(notHittingAnything)
+    const notHittingAnything = (b1) => {
+      return this.bodies.filter(function (b2) { return hitting(b1, b2) }).length === 0
+    }
+    this.bodies = this.bodies.filter(notHittingAnything)
 
     for (let i = 0; i < this.bodies.length; i++) {
       this.bodies[i].update()
@@ -36,15 +36,15 @@ class Game {
     }
   }
 
-//   enemyBelow (enemy) {
-//     return this.bodies.filter(function (b) {
-//       return b instanceof Enemy && Math.abs(enemy.center.x - b.center.x) < b.size.x && b.center.y > enemy.center.y
-//     }).length > 0
-//   }
+  enemyBelow (enemy) {
+    return this.bodies.filter(function (b) {
+      return b instanceof Enemy && Math.abs(enemy.center.x - b.center.x) < b.size.x && b.center.y > enemy.center.y
+    }).length > 0
+  }
 
-//   addBody (body) {
-//     this.bodies.push(body)
-//   }
+  addBody (body) {
+    this.bodies.push(body)
+  }
 }
 
 class Enemy {
@@ -58,11 +58,11 @@ class Enemy {
   }
 
   update () {
-//     if (this.patrolX < 0 || this.patrolX > 30) {
-//       this.speedX = -this.speedX
-//     }
-//     this.center.x += this.speedX
-//     this.patrolX += this.speedX
+    if (this.patrolX < 0 || this.patrolX > 30) {
+      this.speedX = -this.speedX
+    }
+    this.center.x += this.speedX
+    this.patrolX += this.speedX
   }
 }
 
@@ -97,20 +97,17 @@ function drawRect (context, body) {
   context.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2, body.size.x, body.size.y)
 }
 
-// function hitting (b1, b2) {
-//   return !(
-//     b1 === b2 ||
-//             b1.center.x + b1.size.x / 2 < b2.center.x - b2.size.x / 2 ||
-//             b1.center.y + b1.size.y / 2 < b2.center.y - b2.size.y / 2 ||
-//             b1.center.x - b1.size.x / 2 > b2.center.x + b2.size.x / 2 ||
-//             b1.center.y - b1.size.y / 2 > b2.center.y + b2.size.y / 2
-//   )
-// }
+function hitting (b1, b2) {
+  return !(
+    b1 === b2 ||
+            b1.center.x + b1.size.x / 2 < b2.center.x - b2.size.x / 2 ||
+            b1.center.y + b1.size.y / 2 < b2.center.y - b2.size.y / 2 ||
+            b1.center.x - b1.size.x / 2 > b2.center.x + b2.size.x / 2 ||
+            b1.center.y - b1.size.y / 2 > b2.center.y + b2.size.y / 2
+  )
+}
 
 window.addEventListener('load', function () {
   new Game()
 })
 
-
-// new Player()
-// new Enemy()
