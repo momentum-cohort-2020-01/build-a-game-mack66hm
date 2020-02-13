@@ -30,7 +30,7 @@ class Game {
 
   draw (context, gameSize) {
     context.clearRect(0, 0, gameSize.x, gameSize.y)
-    context.fillStyle = '#03fccf';
+    context.fillStyle = '#ad241a'
 
     for (let i = 0; i < this.bodies.length; i++) {
       drawRect(context, this.bodies[i])
@@ -53,29 +53,35 @@ class Enemy {
     this.game = game
     this.center = center
     this.size = { x: 25, y: 25 }
-
     this.patrolX = 0
-    this.speedX = 0.5
+    this.speedX = Math.random() * 5
+    this.patrolY = 0
+    this.speedY = Math.random() * 5
+
+    // this.patrolX = 0.5
+    // this.speedX = 0.5
   }
 
   update () {
-    if (this.patrolX < 0 || this.patrolX > 50) {
-      this.speedX = -this.speedX
-    }
-    // if (this.patrolY < 0 || this.patrolY > 50) {
-    //     this.speedY = -this.speedY
-    // }
     this.center.x += this.speedX
     this.patrolX += this.speedX
-   
+    this.patrolY += this.speedY
+    if (this.patrolX < 0 || this.patrolX > 350) {
+      this.speedX = -this.speedX
+    }
+    if (this.patrolY < 0 || this.patrolY > 350) {
+        this.speedY = -this.speedY
+    }
+
+    // this.patrolX += this.speedX
   }
 }
 
 function createEnemy (game) {
   const enemy = []
   for (let i = 0; i < 10; i++) {
-    const x = 50 + (i % 8) * 50
-    const y = 50 + (i % 3) * 50
+    const x = Math.random() * 600
+    const y = Math.random() * 600
     enemy.push(new Enemy(game, { x: x, y: y }))
   }
   return enemy
@@ -84,8 +90,8 @@ function createEnemy (game) {
 class Player {
   constructor (game, gameSize) {
     this.game = game
-    this.size = { x: 25, y: 25 } 
-    this.death = false;
+    this.size = { x: 25, y: 25 }
+    this.death = false
     this.center = { x: gameSize.x / 2, y: gameSize.y - this.size.y * 2 }
     this.keyboarder = Keyboarder
   }
@@ -104,7 +110,7 @@ class Player {
 }
 
 function drawRect (context, body) {
-    context.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2, body.size.x, body.size.y)
+  context.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2, body.size.x, body.size.y)
 }
 
 function hitting (b1, b2) {
